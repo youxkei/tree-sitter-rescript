@@ -1,0 +1,15 @@
+[
+  {
+    "type": "structure_item_region",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "",
+    "named": false
+  },
+  {
+    "type": "comment",
+    "named": true
+  }
+]

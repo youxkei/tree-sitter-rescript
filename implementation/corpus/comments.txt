@@ -1,0 +1,12 @@
+====================================
+Single-line comments
+====================================
+
+// Hello, world!
+// こんにちは、世界！
+
+---
+
+(structure_item_region
+  (comment)
+  (comment))
