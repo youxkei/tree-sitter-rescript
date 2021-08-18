@@ -7,6 +7,6 @@ Single-line comments
 
 ---
 
-(structure_item_region
+(implementation
   (comment)
   (comment))

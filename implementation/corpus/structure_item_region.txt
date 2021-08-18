@@ -1,0 +1,12 @@
+====================================
+Open without attributes
+====================================
+
+open Foo.Bar
+
+---
+
+(implementation
+  (structure_item_region
+    (open_description
+      (module_long_ident (uident) (uident)))))

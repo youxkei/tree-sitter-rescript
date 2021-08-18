@@ -1,15 +1,160 @@
 [
   {
-    "type": "structure_item_region",
+    "type": "attribute",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_id",
+          "named": true
+        },
+        {
+          "type": "payload",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "attribute_id",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "lident",
+          "named": true
+        },
+        {
+          "type": "uident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "attributes",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "implementation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "structure_item_region",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "module_long_ident",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "uident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "open_description",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "module_long_ident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "payload",
     "named": true,
     "fields": {}
   },
   {
-    "type": "",
+    "type": "structure_item_region",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attributes",
+          "named": true
+        },
+        {
+          "type": "open_description",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "!",
+    "named": false
+  },
+  {
+    "type": "(",
+    "named": false
+  },
+  {
+    "type": ")",
+    "named": false
+  },
+  {
+    "type": ".",
+    "named": false
+  },
+  {
+    "type": "@",
     "named": false
   },
   {
     "type": "comment",
+    "named": true
+  },
+  {
+    "type": "lident",
+    "named": true
+  },
+  {
+    "type": "open",
+    "named": false
+  },
+  {
+    "type": "uident",
     "named": true
   }
 ]
