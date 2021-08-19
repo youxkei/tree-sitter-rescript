@@ -1,0 +1,45 @@
+====================================
+Open without training semicolon
+====================================
+
+open Lorem
+
+---
+
+(implementation
+  (structure_item_region
+    (open_description
+      (module_long_ident (uident)))))
+
+====================================
+Open with training semicolon
+====================================
+
+open Lorem;
+
+---
+
+(implementation
+  (structure_item_region
+    (open_description
+      (module_long_ident (uident)))))
+
+====================================
+Multiple opens
+====================================
+
+open Lorem
+open Ipsum; open Dolor
+
+---
+
+(implementation
+  (structure_item_region
+    (open_description
+      (module_long_ident (uident))))
+  (structure_item_region
+    (open_description
+      (module_long_ident (uident))))
+  (structure_item_region
+    (open_description
+      (module_long_ident (uident)))))

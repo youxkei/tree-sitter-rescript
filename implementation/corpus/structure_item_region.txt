@@ -2,7 +2,7 @@
 Open without attributes
 ====================================
 
-open Foo.Bar
+open Lorem.Ipsum
 
 ---
 

@@ -7,7 +7,7 @@ module.exports = grammar({
   ],
 
   rules: {
-    implementation: $ => repeat($.structure_item_region),
+    implementation: $ => repeatSepTail($.structure_item_region, choice(';', '\n')),
 
     structure_item_region: $ => seq(optional($.attributes), choice(
       $.open_description,
@@ -43,4 +43,12 @@ function repeatSep1(rule, separator) {
 
 function repeatSep(rule, separator) {
   return optional(repeatSep1(rule, separator));
+}
+
+function repeatSepTail1(rule, separator) {
+  return seq(repeatSep1(rule, separator), optional(separator));
+}
+
+function repeatSepTail(rule, separator) {
+  return optional(repeatSepTail1(rule, separator));
 }
