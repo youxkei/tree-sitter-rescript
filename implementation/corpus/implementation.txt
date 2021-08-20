@@ -43,3 +43,20 @@ open Ipsum; open Dolor
   (structure_item_region
     (open_description
       (module_long_ident (uident)))))
+
+====================================
+Invalid multiple opens
+====================================
+
+open Lorem open Ipsum
+
+---
+
+(implementation
+  (ERROR
+    (structure_item_region
+      (open_description
+        (module_long_ident (uident)))))
+  (structure_item_region
+    (open_description
+      (module_long_ident (uident)))))
