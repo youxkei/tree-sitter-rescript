@@ -66,6 +66,30 @@ open Dolor
       (module_long_ident (uident)))))
 
 ========================================================================
+Attribute with one-line structure items as payload
+========================================================================
+
+@lorem(open Lorem; open Ipsum)
+open Dolor
+
+---
+
+(implementation
+  (structure_item_region
+    (attributes
+      (attribute
+        (attribute_id (lident))
+        (payload
+          (structure_item_region
+            (open_description
+              (module_long_ident (uident))))
+          (structure_item_region
+            (open_description
+              (module_long_ident (uident)))))))
+    (open_description
+      (module_long_ident (uident)))))
+
+========================================================================
 Invalid attribute with structure items as payload
 ========================================================================
 
