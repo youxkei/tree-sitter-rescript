@@ -23,7 +23,11 @@ module.exports = grammar({
 
     attribute_id: $ => repeatSep1(choice($.lident, $.uident), '.'),
 
-    payload: $ => seq('(', ')'), // TODO
+    payload: $ => seq(token.immediate('('), optional(choice(
+      /* seq(':', choice($.signature_item_region, $.typ_expr)),
+      seq('?', $.pattern, optional(seq(choice("when", "if"), $.expr))), */
+      repeatSepTail($.structure_item_region, choice(';', '\n'))
+    )), ')'), // TODO
 
     lident: $ => token(choice(
       seq(/[a-z]/, /[A-Za-z0-9_']*/),

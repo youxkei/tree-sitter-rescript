@@ -1,0 +1,89 @@
+========================================================================
+Attributes without payload content
+========================================================================
+
+@foo
+@bar()
+@foo.bar
+@\こんにちは、世界！"
+open Lorem
+
+---
+
+(implementation
+  (structure_item_region
+    (attributes
+      (attribute (attribute_id (lident)))
+      (attribute (attribute_id (lident)) (payload))
+      (attribute (attribute_id (lident) (lident)))
+      (attribute (attribute_id (lident)))
+    )
+    (open_description
+      (module_long_ident (uident)))))
+
+========================================================================
+Invalid attribute
+========================================================================
+
+@foo ()
+open Lorem
+
+---
+
+(implementation
+  (structure_item_region
+    (attributes
+      (attribute (attribute_id (lident))))
+    (ERROR (UNEXPECTED '('))
+      (open_description
+        (module_long_ident (uident)))))
+
+========================================================================
+Attribute with structure items as payload
+========================================================================
+
+@lorem(
+  open Lorem
+  open Ipsum
+)
+open Dolor
+
+---
+
+(implementation
+  (structure_item_region
+    (attributes
+      (attribute
+        (attribute_id (lident))
+        (payload
+          (structure_item_region
+            (open_description
+              (module_long_ident (uident))))
+          (structure_item_region
+            (open_description
+              (module_long_ident (uident)))))))
+    (open_description
+      (module_long_ident (uident)))))
+
+========================================================================
+Invalid attribute with structure items as payload
+========================================================================
+
+@lorem(
+  open Lorem open Ipsum
+)
+open Dolor
+
+---
+
+(implementation
+  (structure_item_region
+    (attributes
+      (attribute
+        (attribute_id (lident))
+        (payload
+          (ERROR
+            (structure_item_region
+              (open_description (module_long_ident (uident)))))
+          (structure_item_region (open_description (module_long_ident (uident)))))))
+    (open_description (module_long_ident (uident)))))

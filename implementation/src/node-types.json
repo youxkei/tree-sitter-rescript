@@ -100,7 +100,17 @@
   {
     "type": "payload",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "structure_item_region",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "structure_item_region",

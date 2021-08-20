@@ -1,5 +1,5 @@
 ====================================
-Open without attributes
+Open
 ====================================
 
 open Lorem.Ipsum
