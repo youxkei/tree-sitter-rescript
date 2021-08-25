@@ -11,11 +11,8 @@ module.exports = grammar({
 
     structure_item_region: $ => seq(optional($.attributes), choice(
       $.open_description,
+      $.let_bindings,
     )),
-
-    open_description: $ => seq('open', optional('!'), $.module_long_ident),
-
-    module_long_ident: $ => repeatSep1($.uident, '.'),
 
     attributes: $ => repeat1($.attribute),
 
@@ -23,11 +20,32 @@ module.exports = grammar({
 
     attribute_id: $ => repeatSep1(choice($.lident, $.uident), '.'),
 
+    open_description: $ => seq('open', optional('!'), $.module_long_ident),
+
+    module_long_ident: $ => repeatSep1($.uident, '.'),
+
     payload: $ => seq(token.immediate('('), optional(choice(
       /* seq(':', choice($.signature_item_region, $.typ_expr)),
       seq('?', $.pattern, optional(seq(choice("when", "if"), $.expr))), */
       repeatSepTail($.structure_item_region, choice(';', '\n'))
     )), ')'), // TODO
+
+    let_bindings: $ => seq("let", optional("rec"), $.let_binding_body, repeat(seq(optional($.attributes), "and", $.let_binding_body))),
+
+    let_binding_body: $ => seq(
+      $.pattern,
+      optional(seq(
+        ":",
+        choice(
+          seq("type", optional($.lindent_list), ".", $.typ_expr),
+          $.poly_type_expr
+        )
+      )),
+      "=",
+      $.expr
+    ),
+
+    lindent_list: $ => repeat1($.lindent),
 
     lident: $ => token(choice(
       seq(/[a-z]/, /[A-Za-z0-9_']*/),
