@@ -10,3 +10,20 @@ open Lorem.Ipsum
   (structure_item_region
     (open_description
       (module_long_ident (uident) (uident)))))
+
+====================================
+Let
+====================================
+
+let x: type t. int = y
+
+---
+
+(implementation
+  (structure_item_region
+    (let_bindings
+      (let_binding_body
+        (pattern (lident))
+        (lident_list (lident))
+        (typ_expr (lident))
+        (expr (lident))))))

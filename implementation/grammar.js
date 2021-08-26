@@ -37,7 +37,7 @@ module.exports = grammar({
       optional(seq(
         ":",
         choice(
-          seq("type", optional($.lindent_list), ".", $.typ_expr),
+          seq("type", optional($.lident_list), ".", $.typ_expr),
           $.poly_type_expr
         )
       )),
@@ -45,7 +45,23 @@ module.exports = grammar({
       $.expr
     ),
 
-    lindent_list: $ => repeat1($.lindent),
+    pattern: $ => choice(
+      $.lident,
+    ), // TODO
+
+    typ_expr: $ => choice(
+      $.lident,
+    ), // TODO
+
+    poly_type_expr: $ => choice(
+      $.lident,
+    ), // TODO
+
+    expr: $ => choice(
+      $.lident,
+    ), // TODO
+
+    lident_list: $ => repeat1($.lident),
 
     lident: $ => token(choice(
       seq(/[a-z]/, /[A-Za-z0-9_']*/),

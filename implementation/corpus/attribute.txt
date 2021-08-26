@@ -35,8 +35,8 @@ open Lorem
     (attributes
       (attribute (attribute_id (lident))))
     (ERROR (UNEXPECTED '('))
-      (open_description
-        (module_long_ident (uident)))))
+    (open_description
+      (module_long_ident (uident)))))
 
 ========================================================================
 Attribute with structure items as payload
