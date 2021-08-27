@@ -1,0 +1,14 @@
+========================================================================
+Strange type param (It is actually accepted by Res_core.ml.)
+========================================================================
+
+type foo('a> = int
+
+---
+
+(implementation
+  (structure_item_region
+    (type_definition_or_extension
+      (value_path (lident))
+      (type_params (type_param (ident (lident))))
+      (type_equation_and_representation (lident)))))

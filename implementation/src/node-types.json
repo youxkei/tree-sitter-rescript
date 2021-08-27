@@ -68,6 +68,25 @@
     }
   },
   {
+    "type": "ident",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "lident",
+          "named": true
+        },
+        {
+          "type": "uident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "implementation",
     "named": true,
     "fields": {},
@@ -201,6 +220,14 @@
       "required": false,
       "types": [
         {
+          "type": "expr",
+          "named": true
+        },
+        {
+          "type": "pattern",
+          "named": true
+        },
+        {
           "type": "structure_item_region",
           "named": true
         }
@@ -241,6 +268,10 @@
         {
           "type": "open_description",
           "named": true
+        },
+        {
+          "type": "type_definition_or_extension",
+          "named": true
         }
       ]
     }
@@ -261,6 +292,93 @@
     }
   },
   {
+    "type": "type_definition_or_extension",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "type_equation_and_representation",
+          "named": true
+        },
+        {
+          "type": "type_params",
+          "named": true
+        },
+        {
+          "type": "value_path",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_equation_and_representation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "lident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_param",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "ident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_params",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "type_param",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "value_path",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "lident",
+          "named": true
+        },
+        {
+          "type": "uident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "\n",
     "named": false
   },
@@ -269,11 +387,19 @@
     "named": false
   },
   {
+    "type": "'",
+    "named": false
+  },
+  {
     "type": "(",
     "named": false
   },
   {
     "type": ")",
+    "named": false
+  },
+  {
+    "type": ",",
     "named": false
   },
   {
@@ -293,6 +419,14 @@
     "named": false
   },
   {
+    "type": ">",
+    "named": false
+  },
+  {
+    "type": "?",
+    "named": false
+  },
+  {
     "type": "@",
     "named": false
   },
@@ -305,12 +439,20 @@
     "named": true
   },
   {
+    "type": "if",
+    "named": false
+  },
+  {
     "type": "let",
     "named": false
   },
   {
     "type": "lident",
     "named": true
+  },
+  {
+    "type": "nonrec",
+    "named": false
   },
   {
     "type": "open",
@@ -327,5 +469,9 @@
   {
     "type": "uident",
     "named": true
+  },
+  {
+    "type": "when",
+    "named": false
   }
 ]

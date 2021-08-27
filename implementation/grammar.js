@@ -12,23 +12,12 @@ module.exports = grammar({
     structure_item_region: $ => seq(optional($.attributes), choice(
       $.open_description,
       $.let_bindings,
+      $.type_definition_or_extension,
     )),
-
-    attributes: $ => repeat1($.attribute),
-
-    attribute: $ => seq('@', $.attribute_id, optional($.payload)),
-
-    attribute_id: $ => repeatSep1(choice($.lident, $.uident), '.'),
 
     open_description: $ => seq('open', optional('!'), $.module_long_ident),
 
     module_long_ident: $ => repeatSep1($.uident, '.'),
-
-    payload: $ => seq(token.immediate('('), optional(choice(
-      /* seq(':', choice($.signature_item_region, $.typ_expr)),
-      seq('?', $.pattern, optional(seq(choice("when", "if"), $.expr))), */
-      repeatSepTail($.structure_item_region, choice(';', '\n'))
-    )), ')'), // TODO
 
     let_bindings: $ => seq("let", optional("rec"), $.let_binding_body, repeat(seq(optional($.attributes), "and", $.let_binding_body))),
 
@@ -44,6 +33,34 @@ module.exports = grammar({
       "=",
       $.expr
     ),
+
+    type_definition_or_extension: $ => seq(
+      "type",
+      optional(choice("rec", "nonrec")),
+      $.value_path,
+      optional($.type_params),
+      $.type_equation_and_representation,
+    ),
+
+    type_params: $ => seq(/[ \t\r\f]*/, token.immediate(choice("(", "<")), optional(seq(repeatSep1($.type_param, ","), optional(","))), ">"),
+
+    type_param: $ => seq("'", $.ident), // TODO
+
+    type_equation_and_representation: $ => seq("=", $.lident),
+
+    value_path: $ => seq(optional(seq(repeatSep1($.uident, "."), ".")), $.lident),
+
+    attributes: $ => repeat1($.attribute),
+
+    attribute: $ => seq('@', $.attribute_id, optional($.payload)),
+
+    attribute_id: $ => repeatSep1(choice($.lident, $.uident), '.'),
+
+    payload: $ => seq(token.immediate('('), optional(choice(
+      // seq(':', choice($.signature_item_region, $.typ_expr)),
+      seq('?', $.pattern, optional(seq(choice("when", "if"), $.expr))),
+      repeatSepTail($.structure_item_region, choice(';', '\n'))
+    )), ')'), // TODO
 
     pattern: $ => choice(
       $.lident,
@@ -62,6 +79,8 @@ module.exports = grammar({
     ), // TODO
 
     lident_list: $ => repeat1($.lident),
+
+    ident: $ => choice($.lident, $.uident),
 
     lident: $ => token(choice(
       seq(/[a-z]/, /[A-Za-z0-9_']*/),
