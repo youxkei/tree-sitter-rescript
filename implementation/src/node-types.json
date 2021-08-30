@@ -68,6 +68,29 @@
     }
   },
   {
+    "type": "external_def",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "lident",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "typ_expr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "ident",
     "named": true,
     "fields": {},
@@ -250,6 +273,11 @@
     }
   },
   {
+    "type": "string",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "structure_item_region",
     "named": true,
     "fields": {},
@@ -259,6 +287,10 @@
       "types": [
         {
           "type": "attributes",
+          "named": true
+        },
+        {
+          "type": "external_def",
           "named": true
         },
         {
@@ -387,6 +419,10 @@
     "named": false
   },
   {
+    "type": "\"",
+    "named": false
+  },
+  {
     "type": "'",
     "named": false
   },
@@ -437,6 +473,10 @@
   {
     "type": "comment",
     "named": true
+  },
+  {
+    "type": "external",
+    "named": false
   },
   {
     "type": "if",

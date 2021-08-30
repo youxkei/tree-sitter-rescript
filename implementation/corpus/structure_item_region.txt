@@ -42,3 +42,20 @@ type foo('a> = int
       (value_path (lident))
       (type_params (type_param (ident (lident))))
       (type_equation_and_representation (lident)))))
+
+
+
+====================================
+External def
+====================================
+
+external foo: int = "foo"
+
+---
+
+(implementation
+  (structure_item_region
+    (external_def
+      (lident)
+      (typ_expr (lident))
+      (string))))

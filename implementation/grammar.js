@@ -13,42 +13,45 @@ module.exports = grammar({
       $.open_description,
       $.let_bindings,
       $.type_definition_or_extension,
+      $.external_def,
     )),
 
     open_description: $ => seq('open', optional('!'), $.module_long_ident),
 
     module_long_ident: $ => repeatSep1($.uident, '.'),
 
-    let_bindings: $ => seq("let", optional("rec"), $.let_binding_body, repeat(seq(optional($.attributes), "and", $.let_binding_body))),
+    let_bindings: $ => seq('let', optional('rec'), $.let_binding_body, repeat(seq(optional($.attributes), 'and', $.let_binding_body))),
 
     let_binding_body: $ => seq(
       $.pattern,
       optional(seq(
-        ":",
+        ':',
         choice(
-          seq("type", optional($.lident_list), ".", $.typ_expr),
+          seq('type', optional($.lident_list), '.', $.typ_expr),
           $.poly_type_expr
         )
       )),
-      "=",
+      '=',
       $.expr
     ),
 
     type_definition_or_extension: $ => seq(
-      "type",
-      optional(choice("rec", "nonrec")),
+      'type',
+      optional(choice('rec', 'nonrec')),
       $.value_path,
       optional($.type_params),
       $.type_equation_and_representation,
     ),
 
-    type_params: $ => seq(/[ \t\r\f]*/, token.immediate(choice("(", "<")), optional(seq(repeatSep1($.type_param, ","), optional(","))), ">"),
+    external_def: $ => seq('external', $.lident, ':', $.typ_expr, '=', $.string),
+
+    type_params: $ => seq(/[ \t\r\f]*/, token.immediate(choice('(', '<')), optional(seq(repeatSep1($.type_param, ','), optional(','))), '>'),
 
     type_param: $ => seq("'", $.ident), // TODO
 
-    type_equation_and_representation: $ => seq("=", $.lident),
+    type_equation_and_representation: $ => seq('=', $.lident),
 
-    value_path: $ => seq(optional(seq(repeatSep1($.uident, "."), ".")), $.lident),
+    value_path: $ => seq(optional(seq(repeatSep1($.uident, '.'), '.')), $.lident),
 
     attributes: $ => repeat1($.attribute),
 
@@ -58,7 +61,7 @@ module.exports = grammar({
 
     payload: $ => seq(token.immediate('('), optional(choice(
       // seq(':', choice($.signature_item_region, $.typ_expr)),
-      seq('?', $.pattern, optional(seq(choice("when", "if"), $.expr))),
+      seq('?', $.pattern, optional(seq(choice('when', 'if'), $.expr))),
       repeatSepTail($.structure_item_region, choice(';', '\n'))
     )), ')'), // TODO
 
@@ -87,6 +90,11 @@ module.exports = grammar({
       seq('_', /[A-Za-z0-9_]/, /[A-Za-z0-9_']*/),
       seq('\\', /[^"]+/, '"'),
     )),
+
+    string: $ => seq('"', repeat(token.immediate(choice(
+      /[^"\\]/,
+      seq('\\', choice(/[^0-9ox]/, /\d{3}/, /o[0-7]{3}/, /x[\da-fA-F]{2}/)),
+    ))), '"'),
 
     uident: $ => token(seq(/[A-Z]/, /[A-Za-z0-9_']*/)),
 
