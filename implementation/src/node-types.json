@@ -125,6 +125,63 @@
     }
   },
   {
+    "type": "js_ffi_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attributes",
+          "named": true
+        },
+        {
+          "type": "lident",
+          "named": true
+        },
+        {
+          "type": "poly_type_expr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "js_ffi_declarations",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "js_ffi_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "js_import",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "js_ffi_declaration",
+          "named": true
+        },
+        {
+          "type": "js_ffi_declarations",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "let_binding_body",
     "named": true,
     "fields": {},
@@ -291,6 +348,10 @@
         },
         {
           "type": "external_def",
+          "named": true
+        },
+        {
+          "type": "js_import",
           "named": true
         },
         {
@@ -483,6 +544,10 @@
     "named": false
   },
   {
+    "type": "import",
+    "named": false
+  },
+  {
     "type": "let",
     "named": false
   },
@@ -512,6 +577,14 @@
   },
   {
     "type": "when",
+    "named": false
+  },
+  {
+    "type": "{",
+    "named": false
+  },
+  {
+    "type": "}",
     "named": false
   }
 ]

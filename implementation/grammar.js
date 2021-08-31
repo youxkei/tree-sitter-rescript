@@ -14,6 +14,7 @@ module.exports = grammar({
       $.let_bindings,
       $.type_definition_or_extension,
       $.external_def,
+      $.js_import,
     )),
 
     open_description: $ => seq('open', optional('!'), $.module_long_ident),
@@ -44,6 +45,12 @@ module.exports = grammar({
     ),
 
     external_def: $ => seq('external', $.lident, ':', $.typ_expr, '=', $.string),
+
+    js_import: $ => seq('import', choice($.js_ffi_declaration, $.js_ffi_declarations)),
+
+    js_ffi_declarations: $ => seq('{', repeatSep($.js_ffi_declaration, ","), '}'),
+
+    js_ffi_declaration: $ => seq(optional($.attributes), $.lident, ':', $.poly_type_expr),
 
     type_params: $ => seq(/[ \t\r\f]*/, token.immediate(choice('(', '<')), optional(seq(repeatSep1($.type_param, ','), optional(','))), '>'),
 
