@@ -34,7 +34,7 @@ open Lorem
   (structure_item_region
     (attributes
       (attribute (attribute_id (lident))))
-    (ERROR (UNEXPECTED '('))
+    (ERROR)
     (open_description
       (module_long_ident (uident)))))
 

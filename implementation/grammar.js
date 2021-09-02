@@ -15,11 +15,10 @@ module.exports = grammar({
       $.type_definition_or_extension,
       $.external_def,
       $.js_import,
+      $.exception_def,
     )),
 
     open_description: $ => seq('open', optional('!'), $.module_long_ident),
-
-    module_long_ident: $ => repeatSep1($.uident, '.'),
 
     let_bindings: $ => seq('let', optional('rec'), $.let_binding_body, repeat(seq(optional($.attributes), 'and', $.let_binding_body))),
 
@@ -50,7 +49,22 @@ module.exports = grammar({
 
     js_ffi_declarations: $ => seq('{', repeatSep($.js_ffi_declaration, ","), '}'),
 
-    js_ffi_declaration: $ => seq(optional($.attributes), $.lident, ':', $.poly_type_expr),
+    js_ffi_declaration: $ => seq(optional($.attributes), $.lident, ':', $.poly_type_expr), // TODO: parseLident
+
+    exception_def: $ => seq('exception', $.constr_def_without_attrs),
+
+    constr_def_without_attrs: $ => seq($.uident, optional(choice(
+      $.constr_decl_args,
+      seq('=', $.module_long_ident),
+      seq(':', $.typ_expr),
+    ))),
+
+    constr_decl_args: $ => seq('(', choice(
+      seq('{', '}'), // TODO: record
+      repeatSep1($.typ_expr_region, ','),
+    ), ')', optional(seq(':', $.typ_expr))),
+
+    module_long_ident: $ => repeatSep1($.uident, '.'),
 
     type_params: $ => seq(/[ \t\r\f]*/, token.immediate(choice('(', '<')), optional(seq(repeatSep1($.type_param, ','), optional(','))), '>'),
 
@@ -75,6 +89,8 @@ module.exports = grammar({
     pattern: $ => choice(
       $.lident,
     ), // TODO
+
+    typ_expr_region: $ => $.typ_expr,
 
     typ_expr: $ => choice(
       $.lident,

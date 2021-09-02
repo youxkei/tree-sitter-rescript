@@ -53,6 +53,67 @@
     }
   },
   {
+    "type": "constr_decl_args",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "typ_expr",
+          "named": true
+        },
+        {
+          "type": "typ_expr_region",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "constr_def_without_attrs",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "constr_decl_args",
+          "named": true
+        },
+        {
+          "type": "module_long_ident",
+          "named": true
+        },
+        {
+          "type": "typ_expr",
+          "named": true
+        },
+        {
+          "type": "uident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "exception_def",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "constr_def_without_attrs",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "expr",
     "named": true,
     "fields": {},
@@ -347,6 +408,10 @@
           "named": true
         },
         {
+          "type": "exception_def",
+          "named": true
+        },
+        {
           "type": "external_def",
           "named": true
         },
@@ -379,6 +444,21 @@
       "types": [
         {
           "type": "lident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "typ_expr_region",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "typ_expr",
           "named": true
         }
       ]
@@ -534,6 +614,10 @@
   {
     "type": "comment",
     "named": true
+  },
+  {
+    "type": "exception",
+    "named": false
   },
   {
     "type": "external",

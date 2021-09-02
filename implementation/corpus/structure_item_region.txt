@@ -72,3 +72,15 @@ import foo: int
   (structure_item_region
     (js_import
       (js_ffi_declaration (lident) (poly_type_expr (lident))))))
+
+====================================
+JS import
+====================================
+
+exception FooBar
+
+---
+
+(implementation
+  (structure_item_region
+    (exception_def (constr_def_without_attrs (uident)))))
