@@ -16,9 +16,10 @@ module.exports = grammar({
       $.external_def,
       $.js_import,
       $.exception_def,
+      $.include_statement,
     )),
 
-    open_description: $ => seq('open', optional('!'), $.module_long_ident),
+    open_description: $ => seq('open', optional('!'), $.module_long_ident_without_lowercase),
 
     let_bindings: $ => seq('let', optional('rec'), $.let_binding_body, repeat(seq(optional($.attributes), 'and', $.let_binding_body))),
 
@@ -55,7 +56,7 @@ module.exports = grammar({
 
     constr_def_without_attrs: $ => seq($.uident, optional(choice(
       $.constr_decl_args,
-      seq('=', $.module_long_ident),
+      seq('=', $.module_long_ident_without_lowercase),
       seq(':', $.typ_expr),
     ))),
 
@@ -64,7 +65,50 @@ module.exports = grammar({
       repeatSep1($.typ_expr_region, ','),
     ), ')', optional(seq(':', $.typ_expr))),
 
-    module_long_ident: $ => repeatSep1($.uident, '.'),
+    include_statement: $ => seq('include', $.module_expr),
+
+    module_expr: $ => seq(optional($.attributes), choice($.functor_module_expr, $.primary_module_expr)),
+
+    functor_module_expr: $ => seq($.functor_args, optional(seq(':', $.module_type_without_es6_arrow)), '=>', $.module_expr),
+
+    functor_args: $ => seq('(', repeatSep($.functor_arg, ','), ')'),
+
+    functor_arg: $ => choice(
+      seq($.uident, optional(choice(
+        seq(':', $.module_type),
+        seq('.', $.module_long_ident_tail_without_lowercase),
+      ))),
+      seq('_', ':', $.module_type),
+      seq('(', ')'),
+    ),
+
+    module_type_without_es6_arrow: $ => seq(optional($.attributes), $.atomic_module_type, optional($.with_constraints)),
+
+    with_constraints: $ => seq('with', repeatSep(seq($.with_constraint, 'and'))),
+
+    with_constraint: $ => choice(
+      seq('module', $.module_long_ident_without_lowercase, choice(':=', '='), $.module_long_ident_without_lowercase),
+      seq('type', $.value_path, optional($.type_params), choice(
+        seq(':=', $.typ_expr),
+        seq('=', $.typ_expr, optional($.type_constraints)),
+      )),
+    ),
+
+    primary_module_expr: $ => seq($.atomic_module_expr, repeat($.module_application)),
+
+    atomic_module_expr: $ => choice(
+      $.module_long_ident_without_lowercase,
+      seq('{', $.structure_item_region, '}'),
+      seq('(', $.constrained_mod_expr, ')'),
+      seq('unpack', '(', $.expr, optional(seq(':', optional($.attributes), $.package_type)), ')'),
+      seq('%', $.extension),
+    ),
+
+    constrained_mod_expr: $ => seq($.module_expr, optional(seq(':', $.module_type))),
+
+    module_long_ident_without_lowercase: $ => repeatSep1($.uident, '.'),
+
+    module_long_ident_tail_without_lowercase: $ => repeatSep1($.uident, '.'),
 
     type_params: $ => seq(/[ \t\r\f]*/, token.immediate(choice('(', '<')), optional(seq(repeatSep1($.type_param, ','), optional(','))), '>'),
 
